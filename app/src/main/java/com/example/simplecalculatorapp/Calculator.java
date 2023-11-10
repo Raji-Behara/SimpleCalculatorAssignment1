@@ -14,6 +14,7 @@ public class Calculator {
     final static int EMPTY_EXPRESSION = 02;
     final static int OPERATOR_ERROR = 02;
 
+    //Push Method
     public void push(String input) {
         if (input != null && !input.isEmpty()) {
             this.inputString = input;
@@ -21,6 +22,7 @@ public class Calculator {
 
     }
 
+    //Calculate Method
     public int calculate() {
 
         char[] charArray = this.inputString.toCharArray();
@@ -41,8 +43,8 @@ public class Calculator {
                 throw new CalculatorException("Invalid Input", 1001);
             }
 
-            if (!(isValidOperand(charArray[i + 1])))//validating second operand
-            {
+            //validating second operand
+            if (!(isValidOperand(charArray[i + 1]))) {
                 // return DOUBLE_DIGIT;
                 throw new CalculatorException("Invalid Input", 1001);
             }
@@ -65,7 +67,7 @@ public class Calculator {
 
                 case '/':
                     if (secondOperand == 0) {
-                        throw new CalculatorException("/ Zero Not Possible", 1002);
+                        throw new CalculatorException(" Devide by Zero Not Possible", 1002);
                     }
 
                     result = firstOperand / secondOperand;

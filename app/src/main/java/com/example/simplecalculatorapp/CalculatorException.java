@@ -1,18 +1,19 @@
 package com.example.simplecalculatorapp;
 
-public class CalculatorException extends  RuntimeException{
+public class CalculatorException extends RuntimeException {
 
 
     private String errorMessage;
 
-    private  int errorCode;
+    private int errorCode;
 
-    CalculatorException(){
+    CalculatorException() {
 
     }
-    CalculatorException(String errorMessage,int errorCode){
-this.errorMessage=errorMessage;
-this.errorCode=errorCode;
+
+    CalculatorException(String errorMessage, int errorCode) {
+        this.errorMessage = errorMessage;
+        this.errorCode = errorCode;
 
     }
 
@@ -25,7 +26,6 @@ this.errorCode=errorCode;
     }
 
 
-
     public int getErrorCode() {
         return errorCode;
     }
@@ -33,8 +33,6 @@ this.errorCode=errorCode;
     public void setErrorCode(int errorCode) {
         this.errorCode = errorCode;
     }
-
-
 
 
 }

@@ -26,19 +26,13 @@ public class MainActivity extends AppCompatActivity {
     TextView textview;
     TextView textview2;
     Button advanceHistory;
-    private List<String> historyList=null;
-    private final String ADVANCE_WITH_HISTORY="ADVANCE-WITH HISTORY";
-    private final String STANDARD_NO_HISTORY="STANDARD-NO HISTORY";
-
-    String operator = "+";
-    String initialNumber = "";
-
-    // int num1, num2;
+    private List<String> historyList = null;
+    private final String ADVANCE_WITH_HISTORY = "ADVANCE-WITH HISTORY";
+    private final String STANDARD_NO_HISTORY = "STANDARD-NO HISTORY";
 
 
-    String userInput;
-boolean isAdvanceHistoryFlag=false;
-    // boolean isHistoryVisible = false;
+    boolean isAdvanceHistoryFlag = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,37 +59,11 @@ boolean isAdvanceHistoryFlag=false;
         buttonequals = findViewById(R.id.btn_equals);
         textview = findViewById(R.id.result);
 
-        advanceHistory= findViewById(R.id.btn_history);
-      // textview2 = findViewById(R.id.text_history);
+        advanceHistory = findViewById(R.id.btn_history);
+        // textview2 = findViewById(R.id.text_history);
         textview2 = findViewById(R.id.text_history);
 
-        advanceHistory.setOnClickListener(new View.OnClickListener() {
-                                              @Override
 
-        public void onClick(View view) {
-
-             String btnDisplayString=advanceHistory.getText().toString();
-
-            if (ADVANCE_WITH_HISTORY.equals(btnDisplayString)) {
-               isAdvanceHistoryFlag=true;
-               advanceHistory.setText(STANDARD_NO_HISTORY);
-                //advanceHistory.setBackgroundColor(Color.GREEN);
-                initHistory();
-
-            } else if(STANDARD_NO_HISTORY.equals(btnDisplayString)) {
-                isAdvanceHistoryFlag=false;
-                advanceHistory.setText(ADVANCE_WITH_HISTORY);
-                clearHistory();
-
-            }
-             textview.setText("");
-             textview2.setText(" ");
-
-        }
-
-
-
-        });
         //Onclick listners
 
         button1.setOnClickListener(new View.OnClickListener() {
@@ -200,50 +168,7 @@ boolean isAdvanceHistoryFlag=false;
         });
 
 
-        buttonequals.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // throw new RuntimeException();
-                textview.setText(textview.getText() + "=");
-
-                Button btn = (Button) v;
-                String btnString = btn.getText().toString();
-
-
-                try{
-
-                    Calculator calculator = new Calculator();
-                    calculator.push(textview.getText().toString());
-                    int result=calculator.calculate();
-                    textview.setText(textview.getText() + ""+result);
-                }catch (CalculatorException ex){
-                    textview.setText(textview.getText() + ""+ex.getErrorMessage());
-                    if(ex.getErrorCode()==1001){
-                      //  Toast.makeText(this, "",Toast.LENGTH_LONG).show();
-                  // Toast.makeText(MainActivity.this,"invalid input ",Toast.LENGTH_SHORT).show();
-                       // Toast.makeText(MainActivity.this,ex.getErrorMessage(),Toast.LENGTH_SHORT).show();
-                    }else if(ex.getErrorCode()==1002){
-                    }
-                }
-               finally {
-
-                    if (isAdvanceHistoryFlag) {
-                        historyList.add(textview.getText().toString());
-                        textview2.setText(String.join("\n",historyList));
-
-                    }else if(!isAdvanceHistoryFlag){
-                       // clearHistory();
-                        textview2.setText(" ");
-                    }
-                }
-
-            }
-        });
-
-
-
-
-
+        //Clear button
         buttonclear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -252,30 +177,92 @@ boolean isAdvanceHistoryFlag=false;
             }
         });
 
+        //Equals button
+        buttonequals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // throw new RuntimeException();
+                textview.setText(textview.getText() + "=");
+
+                Button btn = (Button) v;
+                String btnString = btn.getText().toString();
+
+
+                try {
+
+                    Calculator calculator = new Calculator();
+                    calculator.push(textview.getText().toString());
+                    int result = calculator.calculate();
+                    textview.setText(textview.getText() + "" + result);
+                } catch (CalculatorException ex) {
+                    textview.setText(textview.getText() + "" + ex.getErrorMessage());
+                    if (ex.getErrorCode() == 1001) {
+                        // Toast.makeText(this, "",Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "invalid input ", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(MainActivity.this,ex.getErrorMessage(),Toast.LENGTH_SHORT).show();
+                    } else if (ex.getErrorCode() == 1002) {
+                    }
+                } finally {
+
+                    if (isAdvanceHistoryFlag) {
+                        historyList.add(textview.getText().toString());
+                        textview2.setText(String.join("\n", historyList));
+
+                    } else if (!isAdvanceHistoryFlag) {
+                        // clearHistory();
+                        textview2.setText(" ");
+                    }
+                }
+
+            }
+        });
+
+
+        advanceHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String btnDisplayString = advanceHistory.getText().toString();
+
+                if (ADVANCE_WITH_HISTORY.equals(btnDisplayString)) {
+                    isAdvanceHistoryFlag = true;
+                    advanceHistory.setText(STANDARD_NO_HISTORY);
+                    //  advanceHistory.setBackgroundColor(Color.BLUE);
+                    initHistory();
+
+                    ((MyApp) getApplication()).isAdvanceHistoryFlag = true;
+
+                } else if (STANDARD_NO_HISTORY.equals(btnDisplayString)) {
+                    isAdvanceHistoryFlag = false;
+                    advanceHistory.setText(ADVANCE_WITH_HISTORY);
+                    // advanceHistory.setBackgroundColor(Color.CYAN);
+                    clearHistory();
+                    ((MyApp) getApplication()).isAdvanceHistoryFlag = false;
+
+                }
+                textview.setText("");
+                textview2.setText(" ");
+
+            }
+
+
+        });
+
     }
 
 
-    private void initHistory(){
+    private void initHistory() {
 
-        if(historyList==null) {
-            historyList=new ArrayList<>();
+        if (historyList == null) {
+            historyList = new ArrayList<>();
         }
     }
 
     private void clearHistory() {
-        if(historyList!=null) {
-            historyList=null;
+        if (historyList != null) {
+            historyList = null;
         }
     }
 
 
-
-    }
-
-
-
-
-
-
-
-
+}
