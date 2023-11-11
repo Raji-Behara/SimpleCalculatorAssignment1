@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    Calculator calculator = new Calculator();
     // initialosation of buttons
     Button button1, button2, button3, button4, button5, button6, button7, button8, button9,
             buttonadd, buttonsub, buttonmul, buttondevide, button0, buttonequals, buttonclear;
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         // textview2 = findViewById(R.id.text_history);
         textview2 = findViewById(R.id.text_history);
 
-        Calculator calculator = new Calculator();
+
         //Onclick listners
 
         button1.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //Clear button
+        //clear button
         buttonclear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,10 +186,11 @@ public class MainActivity extends AppCompatActivity {
                 Button btn = (Button) v;
                 String btnString = btn.getText().toString();
 
-
+                //calling push method here
                 try {
 
                     calculator.push(textview.getText().toString());
+                    //calling  calculate function here
                     int result = calculator.calculate();
                     textview.setText(textview.getText() + "" + result);
                 } catch (CalculatorException ex) {
@@ -198,6 +198,8 @@ public class MainActivity extends AppCompatActivity {
 
                     Toast.makeText(MainActivity.this, ex.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 } finally {
+
+                    // history
 
                     if (isAdvanceHistoryFlag) {
                         historyList.add(textview.getText().toString());
