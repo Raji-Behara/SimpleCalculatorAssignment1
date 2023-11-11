@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         // textview2 = findViewById(R.id.text_history);
         textview2 = findViewById(R.id.text_history);
 
-
+        Calculator calculator = new Calculator();
         //Onclick listners
 
         button1.setOnClickListener(new View.OnClickListener() {
@@ -190,18 +190,13 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
 
-                    Calculator calculator = new Calculator();
                     calculator.push(textview.getText().toString());
                     int result = calculator.calculate();
                     textview.setText(textview.getText() + "" + result);
                 } catch (CalculatorException ex) {
                     textview.setText(textview.getText() + "" + ex.getErrorMessage());
-                    if (ex.getErrorCode() == 1001) {
-                        // Toast.makeText(this, "",Toast.LENGTH_LONG).show();
-                        Toast.makeText(MainActivity.this, "invalid input ", Toast.LENGTH_SHORT).show();
-                        // Toast.makeText(MainActivity.this,ex.getErrorMessage(),Toast.LENGTH_SHORT).show();
-                    } else if (ex.getErrorCode() == 1002) {
-                    }
+
+                    Toast.makeText(MainActivity.this, ex.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 } finally {
 
                     if (isAdvanceHistoryFlag) {
@@ -250,7 +245,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     private void initHistory() {
 
         if (historyList == null) {
@@ -263,6 +257,5 @@ public class MainActivity extends AppCompatActivity {
             historyList = null;
         }
     }
-
 
 }

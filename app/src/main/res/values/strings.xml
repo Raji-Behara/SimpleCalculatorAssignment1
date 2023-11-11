@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">SimpleCalculatorApp</string>
-    <string name="enter_number1">Enter First Number</string>
-    <string name="enter_number2">Enter Second Number</string>
+
+    <string name="a_hist">Advance with history</string>
+    <string name="b_hist">Advance with history</string>
+
+    <string name="standard_no_history">Standard-No History</string>
+    <string name="advance_with_history">Advance with History</string>
 </resources>

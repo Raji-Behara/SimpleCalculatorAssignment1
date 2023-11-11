@@ -26,8 +26,9 @@ public class Calculator {
     public int calculate() {
 
         char[] charArray = this.inputString.toCharArray();
+        //validating firstoperand
+        if (!(isValidOperand(charArray[0])))
 
-        if (!(isValidOperand(charArray[0])))//validating firstoperand
         {
             // return  DOUBLE_DIGIT;
             throw new CalculatorException("Invalid Input", 1001);
